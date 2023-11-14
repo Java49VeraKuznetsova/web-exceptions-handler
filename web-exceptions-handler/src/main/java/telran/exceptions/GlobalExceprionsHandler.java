@@ -44,5 +44,10 @@ ResponseEntity<String> notFound(NotFoundException e) {
 	String message = e.getMessage();
 	return errorResponse(message, HttpStatus.NOT_FOUND);
 }
+@ExceptionHandler({Exception.class})
+ResponseEntity<String> badWriteOrRead(Exception e) {
+	String message = e.getMessage();
+	return errorResponse(message, HttpStatus.BAD_REQUEST);
+}
 
 }
