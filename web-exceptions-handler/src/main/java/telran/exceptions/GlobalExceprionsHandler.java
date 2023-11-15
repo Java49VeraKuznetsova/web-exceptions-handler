@@ -44,6 +44,7 @@ ResponseEntity<String> notFound(NotFoundException e) {
 	String message = e.getMessage();
 	return errorResponse(message, HttpStatus.NOT_FOUND);
 }
+//on Webinar - thi isn't necessary
 @ExceptionHandler({Exception.class})
 ResponseEntity<String> badWriteOrRead(Exception e) {
 	String message = e.getMessage();
