@@ -15,7 +15,8 @@ import lombok.extern.slf4j.Slf4j;
 
 @ControllerAdvice
 @Slf4j
-public class GlobalExceprionsHandler {
+public class GlobalExceptionsHandler {
+	
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	ResponseEntity<String> handlerMethodArgument(MethodArgumentNotValidException e) {
 		List<ObjectError> errors = e.getAllErrors();
@@ -27,14 +28,7 @@ public class GlobalExceprionsHandler {
 		log.error(body);
 		return new ResponseEntity<>(body, status);
 	}
-	/*
-	@ExceptionHandler(HttpMessageNotReadableException.class)
-	ResponseEntity<String> handlerParsingError(HttpMessageNotReadableException e){
-		
-		return errorResponse(e.getMessage(), HttpStatus.BAD_REQUEST);
-	}
-	*/
-@ExceptionHandler({IllegalStateException.class, HttpMessageNotReadableException.class})
+@ExceptionHandler({IllegalStateException.class, IllegalArgumentException.class, HttpMessageNotReadableException.class})
 ResponseEntity<String> badRequest(Exception e) {
 	String message = e.getMessage();
 	return errorResponse(message, HttpStatus.BAD_REQUEST);
@@ -43,12 +37,6 @@ ResponseEntity<String> badRequest(Exception e) {
 ResponseEntity<String> notFound(NotFoundException e) {
 	String message = e.getMessage();
 	return errorResponse(message, HttpStatus.NOT_FOUND);
-}
-//on Webinar - this isn't necessary
-@ExceptionHandler({Exception.class})
-ResponseEntity<String> badWriteOrRead(Exception e) {
-	String message = e.getMessage();
-	return errorResponse(message, HttpStatus.BAD_REQUEST);
 }
 
 }
